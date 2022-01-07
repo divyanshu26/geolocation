@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=?><<ce-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="../css/htm1.css" />
+    <title>Icon</title>
+    <!-- <link rel="icon" type="image/x-icon" href="https://www.w3schools.com/favicon.ico"> -->
+  </head>
+  <body>
+    <div id="geoloc">
+      <input type="text" name="" placeholder="name" id="myText" />
+      <button onclick="getlocation(this)">get location</button>
+      <p id='err'></p>
+    </div>
+
+    <script type="text/javascript">
+      const getlocation = function (ab) {
+        var obj = {};
+        const xhttp = new XMLHttpRequest();
+
+        //function to be called after successful google maps api call (defined below)
+        xhttp.onload = function () {
+          //console.log("response");
+          //console.log(this);
+          //console.log(JSON.parse(this.response));
+
+          let response = JSON.parse(this.responseText);
+          let address = response.results;
+
+          if (address.length > 0) {
+            address = address[0].formatted_address;
+            createSubmitButton();
+            obj.address = address;
+            obj.name = document.getElementById("myText").value;
+            postAddress(obj);
+          } else {document.getElementById('err').innerHTML = 'there was some error';
+            //refresh page here
+            console.log(response.error_message, "error");
+          }
+        };
+
+
+        //getting geolocation from users browser
+        navigator.geolocation.getCurrentPosition((position) => {
+          obj.latitude = position.coords.latitude;
+          obj.longitude = position.coords.longitude;
+          obj.accuracy = position.coords.accuracy;
+          //console.log(obj);
+
+          //google-maps api to get address using latitude and longitude
+          const mapsAPIKey = '' //Put your API key here
+          let url =
+            "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
+            obj.latitude +
+            "," +
+            obj.longitude + mapsAPIKey;
+          xhttp.open("GET", url, true);
+          xhttp.send();
+        });
+
+        const createSubmitButton = function () {
+          //adding submit button when address arrives
+
+
+          const btn = document.createElement("BUTTON");
+          const text = document.createTextNode("Submit Address");
+          btn.appendChild(text);
+          document.getElementById("geoloc").appendChild(btn);
+        };
+
+        const postAddress = function (details) {
+          // API call to store user on django service
+
+          fetch("http://127.0.0.1:8000/catalog/people/", {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify(details),
+          }).then((data) => {
+            console.log("sucess", data);
+          });
+        };
+      };
+    </script>
+  </body>
+</html>

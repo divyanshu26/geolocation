@@ -11,8 +11,9 @@ location.
 
 Once google maps API is successful you will get a submit button.
 Click it to save your address on Django webservice.
+Here I am selecting first address out of several returned by the API.It can be changed as per requirement.
 
-#### Put your Google Maps API key in variable mapsAPIKey is geolocation.html file
+#### Put your Google Maps API key in variable mapsAPIKey in geolocation.html file
 #### Right now validation for empty input field is not provided. 
 ## Run Locally
 

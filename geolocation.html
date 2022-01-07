@@ -11,8 +11,8 @@
   <body>
     <div id="geoloc">
       <input type="text" name="" placeholder="name" id="myText" />
-      <button onclick="getlocation(this)">get location</button>
-      <p id='err'></p>
+      <button onclick="getlocation(this)">Submit location</button>
+      <p id="err"></p>
     </div>
 
     <script type="text/javascript">
@@ -31,16 +31,16 @@
 
           if (address.length > 0) {
             address = address[0].formatted_address;
-            createSubmitButton();
+
             obj.address = address;
             obj.name = document.getElementById("myText").value;
+
             postAddress(obj);
-          } else {document.getElementById('err').innerHTML = 'there was some error';
-            //refresh page here
+          } else {
+            document.getElementById("err").innerHTML = "there was some error";
             console.log(response.error_message, "error");
           }
         };
-
 
         //getting geolocation from users browser
         navigator.geolocation.getCurrentPosition((position) => {
@@ -50,25 +50,16 @@
           //console.log(obj);
 
           //google-maps api to get address using latitude and longitude
-          const mapsAPIKey = '' //Put your API key here
+          const mapsAPIKey = ""; //Put your API key here
           let url =
             "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
             obj.latitude +
             "," +
-            obj.longitude + mapsAPIKey;
+            obj.longitude +
+            mapsAPIKey;
           xhttp.open("GET", url, true);
           xhttp.send();
         });
-
-        const createSubmitButton = function () {
-          //adding submit button when address arrives
-
-
-          const btn = document.createElement("BUTTON");
-          const text = document.createTextNode("Submit Address");
-          btn.appendChild(text);
-          document.getElementById("geoloc").appendChild(btn);
-        };
 
         const postAddress = function (details) {
           // API call to store user on django service
@@ -81,7 +72,7 @@
             method: "POST",
             body: JSON.stringify(details),
           }).then((data) => {
-            console.log("sucess", data);
+            console.log("success", data);
           });
         };
       };

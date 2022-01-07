@@ -19,7 +19,7 @@ Click it to save your address on Django webservice.
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/divyanshu26/geolocation.git
 ```
 
 Install dependencies
@@ -33,7 +33,7 @@ Install dependencies
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd geolocation
 ```
 
 Run database migrations

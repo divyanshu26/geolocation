@@ -78,7 +78,7 @@ You can also browse to see the availabe list of users and add to it.
 http://127.0.0.1:8000/catalog/people
 
 
-Cloud Deployment (Heroku)
+### Cloud Deployment (Heroku)
 
 https://murmuring-harbor-62627.herokuapp.com/catalog/people/
 

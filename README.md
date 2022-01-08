@@ -76,3 +76,13 @@ Click on user to select and delete if not found suitable.
 You can also browse to see the availabe list of users and add to it.
 
 http://127.0.0.1:8000/catalog/people
+
+
+Cloud Deployment (Heroku)
+
+https://murmuring-harbor-62627.herokuapp.com/catalog/people/
+
+I have reffered to two these links for Heroku deployment
+
+https://devcenter.heroku.com/articles/django-app-configuration
+https://realpython.com/django-hosting-on-heroku/#step-5-log-in-with-the-heroku-cli
